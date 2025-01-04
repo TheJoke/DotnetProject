@@ -7771,23 +7771,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\21697\\.nuget\\packages\\": {},
+    "C:\\Users\\amirm\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\9raya\\3eme\\DotNet\\ServiceApresVenteApp\\ServiceApresVenteApp\\ServiceApresVenteApp.csproj",
+      "projectUniqueName": "C:\\Users\\amirm\\Documents\\Code\\.NET\\DotnetProject\\ServiceApresVenteApp\\ServiceApresVenteApp.csproj",
       "projectName": "ServiceApresVenteApp",
-      "projectPath": "D:\\9raya\\3eme\\DotNet\\ServiceApresVenteApp\\ServiceApresVenteApp\\ServiceApresVenteApp.csproj",
-      "packagesPath": "C:\\Users\\21697\\.nuget\\packages\\",
-      "outputPath": "D:\\9raya\\3eme\\DotNet\\ServiceApresVenteApp\\ServiceApresVenteApp\\obj\\",
+      "projectPath": "C:\\Users\\amirm\\Documents\\Code\\.NET\\DotnetProject\\ServiceApresVenteApp\\ServiceApresVenteApp.csproj",
+      "packagesPath": "C:\\Users\\amirm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\amirm\\Documents\\Code\\.NET\\DotnetProject\\ServiceApresVenteApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\21697\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\amirm\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
