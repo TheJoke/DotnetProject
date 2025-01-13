@@ -17,69 +17,69 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ServiceApresVenteApp
 build_property.RootNamespace = ServiceApresVenteApp
-build_property.ProjectDir = C:\Users\amirm\Documents\Code\.NET\DotnetProject\ServiceApresVenteApp\
+build_property.ProjectDir = D:\9raya\3eme\DotNet\ServiceApresVenteApp\ServiceApresVenteApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\amirm\Documents\Code\.NET\DotnetProject\ServiceApresVenteApp
+build_property.MSBuildProjectDirectory = D:\9raya\3eme\DotNet\ServiceApresVenteApp\ServiceApresVenteApp
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Account/Login.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Account/Register.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Articles/Create.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Articles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Articles/Delete.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Articles/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Articles/Details.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Articles/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Articles/Edit.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Articles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Articles/Index.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Articles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Home/Index.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Home/Privacy.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Shared/Error.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/_ViewImports.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/_ViewStart.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amirm/Documents/Code/.NET/DotnetProject/ServiceApresVenteApp/Views/Shared/_Layout.cshtml]
+[D:/9raya/3eme/DotNet/ServiceApresVenteApp/ServiceApresVenteApp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-276i1i2cwl

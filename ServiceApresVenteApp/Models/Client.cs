@@ -15,7 +15,7 @@ namespace ServiceApresVente.Models
 
 
         // Navigation property
-        public ICollection<Reclamation> Reclamations { get; set; } = new List<Reclamation>();
+        public ICollection<Article> Articles{ get; set; } = new List<Article>();
     }
 
 

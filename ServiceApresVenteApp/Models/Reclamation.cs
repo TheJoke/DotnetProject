@@ -8,7 +8,6 @@
         public DateTime DateReclamation { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        public Client? Client { get; set; } 
         public Article? Article { get; set; } 
 
         public ICollection<Intervention> Interventions { get; set; } = new List<Intervention>();

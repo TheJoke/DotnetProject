@@ -13,7 +13,6 @@ namespace ServiceApresVente.Models
         public int ClientId { get; set; }
 
         // Navigation properties
-        //[ForeignKey("ClientId")]
         public Client Client { get; set; }
         public ICollection<Reclamation> Reclamations { get; set; } = new List<Reclamation>();
     }
