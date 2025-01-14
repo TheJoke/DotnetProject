@@ -10,10 +10,10 @@ namespace ServiceApresVente.Models
         public DateTime DateAchat { get; set; }
         public int DureeGarantie { get; set; }
 
-        public int ClientId { get; set; }
+        public int UserId { get; set; }
 
         // Navigation properties
-        public Client Client { get; set; }
+        public User User { get; set; }
         public ICollection<Reclamation> Reclamations { get; set; } = new List<Reclamation>();
     }
 }

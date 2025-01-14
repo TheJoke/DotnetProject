@@ -12,10 +12,10 @@ namespace ServiceApresVenteApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<Client> userManager;
+        private readonly UserManager<User> userManager;
 
 
-        public HomeController(ILogger<HomeController> logger, UserManager<Client> userManager)
+        public HomeController(ILogger<HomeController> logger, UserManager<User> userManager)
 
         {
             this.userManager = userManager;
