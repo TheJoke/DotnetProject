@@ -1,20 +1,37 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using ServiceApresVente.Models;
+using ServiceApresVenteApp.Repositories;
 using ServiceApresVenteApp.ViewModels;
 
 namespace ServiceApresVenteApp.Controllers
 {
     public class ResponsibleController : Controller
     {
-        private readonly RoleManager<IdentityRole> roleManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<User> userManager;
+        private readonly IArticleRepository articleRepository;
+        private readonly IUserRepository userRepository;
 
-        public ResponsibleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public ResponsibleController( 
+            UserManager<User> userManager, 
+            IUserRepository userRepository,
+            IArticleRepository articleRepository)
         {
-            this.roleManager = roleManager;
             this.userManager = userManager;
+            this.userRepository = userRepository;
+            this.articleRepository = articleRepository;
         }
-
+        public IActionResult Index()
+        {
+            return View(articleRepository.GetAll());
+        }
+        public IActionResult CreateArticle()
+        {
+            ViewData["UserId"] = new SelectList(userRepository.GetAll(), "Id", "Id");
+            return View();
+        }
 
         
     }

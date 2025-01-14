@@ -10,6 +10,12 @@ namespace ServiceApresVenteApp.Repositories
         {
             this._context = context;
         }
+
+        public List<User> GetAll()
+        {
+            return _context.Users.ToList();
+        }
+
         public User GetUserById(int id)
         {
             return _context.Users.Include(u => u.Articles).FirstOrDefault(x => x.Id == id);

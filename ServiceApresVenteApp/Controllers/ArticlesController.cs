@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,11 @@ using ServiceApresVente.Models;
 
 namespace ServiceApresVenteApp.Controllers
 {
+    [Authorize(Roles="Responsable")]
     public class ArticlesController : Controller
     {
         private readonly ApplicationDbContext _context;
+
 
         public ArticlesController(ApplicationDbContext context)
         {
@@ -47,7 +50,7 @@ namespace ServiceApresVenteApp.Controllers
         // GET: Articles/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users.ToList(), "Id", "Id");
             return View();
         }
 
