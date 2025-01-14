@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ServiceApresVenteApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250114164704_updateUser")]
-    partial class updateUser
+    [Migration("20250114172624_Client_Articles")]
+    partial class Client_Articles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

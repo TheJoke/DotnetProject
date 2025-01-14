@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -61,7 +62,7 @@ namespace ServiceApresVenteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,DateReclamation,ArticleId")] Reclamation reclamation)
+        public async Task<IActionResult> Create([Bind("Description,DateReclamation,ArticleId")] Reclamation reclamation)
         {
             if (ModelState.IsValid)
             {
@@ -72,15 +73,16 @@ namespace ServiceApresVenteApp.Controllers
             }
             return View(reclamation);
         }
-        public IActionResult CreateWithArticleId(int id)
+        public IActionResult CreateWithArticleId(int ArticleId)
         {
-            ViewData["ArticleId"] = id;
+            ViewData["ArticleId"] = ArticleId;
+           
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateWithArticleId([Bind("Id,Description,DateReclamation,ArticleId")] Reclamation reclamation)
+        public async Task<IActionResult> CreateWithArticleId([Bind("Description,DateReclamation,ArticleId")] Reclamation reclamation)
         {
             if (ModelState.IsValid)
             {

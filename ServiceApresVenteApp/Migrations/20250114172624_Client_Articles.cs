@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ServiceApresVenteApp.Migrations
 {
     /// <inheritdoc />
-    public partial class updateUser : Migration
+    public partial class Client_Articles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
