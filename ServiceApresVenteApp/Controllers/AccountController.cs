@@ -47,7 +47,6 @@ namespace ServiceApresVenteApp.Controllers
                 {
                     Debug.WriteLine("izeulsdgohl:");
                     var roleResult = await userManager.AddToRoleAsync(user, "Client");
-                    await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Login", "Account");
                 }
 
