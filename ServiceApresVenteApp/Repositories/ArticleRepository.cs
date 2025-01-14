@@ -11,6 +11,7 @@ namespace ServiceApresVenteApp.Repositories
         }
         public IList<Article> GetAll()
         {
+            
             return context.Articles.OrderBy(s => s.Nom).ToList();
         }
         public Article GetById(int id)
@@ -42,5 +43,18 @@ namespace ServiceApresVenteApp.Repositories
                 context.SaveChanges();
             }
         }
+
+        public void Update(Article s)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Article> GetByUserId(int userId)
+        {
+            var articles = context.Articles.Where(a=>a.UserId == userId).ToList();
+            return articles;
+        }
+
+
     }
 }

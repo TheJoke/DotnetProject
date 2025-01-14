@@ -9,6 +9,8 @@ namespace ServiceApresVenteApp.Repositories
         void Add(Article s);
         void Edit(Article s);
         void Delete(Article s);
+        void Update(Article s);
+        List<Article> GetByUserId(int userId);
 
     }
 }
