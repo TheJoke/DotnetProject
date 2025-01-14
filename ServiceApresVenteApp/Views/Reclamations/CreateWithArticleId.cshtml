@@ -20,12 +20,19 @@
 
             <div class="form-group">
                 <label asp-for="DateReclamation" class="control-label"></label>
-                <input asp-for="DateReclamation" class="form-control" />
+                <input asp-for="DateReclamation" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="DateReclamation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArticleId" class="control-label"></label>
-                <input asp-for="ArticleId" value="@ViewData["ArticleId"]" />
+                <input asp-for="ArticleId" type="hidden" value="@ViewData["ArticleId"]" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Article</label>
+                <input type="text" value="@ViewData["Nom"]" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Reference</label>
+                <input type="text" value="@ViewData["Reference"]" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

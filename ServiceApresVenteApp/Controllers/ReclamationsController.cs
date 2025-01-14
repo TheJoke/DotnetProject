@@ -16,18 +16,20 @@ namespace ServiceApresVenteApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IUserRepository userRepository;
+        private readonly IArticleRepository articleRepository;
 
 
-        public ReclamationsController(ApplicationDbContext context, IUserRepository userRepository)
+        public ReclamationsController(ApplicationDbContext context, IUserRepository userRepository, IArticleRepository articleRepository)
         {
             _context = context;
             this.userRepository = userRepository;
+            this.articleRepository = articleRepository;
         }
 
         // GET: Reclamations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Reclamations.ToListAsync());
+            return View(await _context.Reclamations.Include(r => r.Article).ToListAsync());
         }
 
         // GET: Reclamations/Details/5
@@ -51,7 +53,7 @@ namespace ServiceApresVenteApp.Controllers
         // GET: Reclamations/Create
         public IActionResult Create()
         {
-            ViewData["ArticleId"] = new SelectList(_context.Articles.ToList(), "Id", "Id");
+            ViewData["ArticleId"] = new SelectList(_context.Articles.ToList(), "Id", "Reference");
             
 
             return View();
@@ -76,6 +78,10 @@ namespace ServiceApresVenteApp.Controllers
         public IActionResult CreateWithArticleId(int ArticleId)
         {
             ViewData["ArticleId"] = ArticleId;
+            ViewData["Nom"] = articleRepository.GetById(ArticleId).Nom;
+            ViewData["Reference"] = articleRepository.GetById(ArticleId).Reference;
+            
+            
            
             return View();
         }
@@ -101,7 +107,7 @@ namespace ServiceApresVenteApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ArticleId"] = new SelectList(_context.Articles.ToList(), "Id", "Id");
+            ViewData["ArticleId"] = new SelectList(_context.Articles.ToList(), "Id", "Reference");
 
             var reclamation = await _context.Reclamations.FindAsync(id);
             if (reclamation == null)
