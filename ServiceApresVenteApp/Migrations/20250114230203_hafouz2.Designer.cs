@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ServiceApresVenteApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250114185809_ReclamationFix")]
-    partial class ReclamationFix
+    [Migration("20250114230203_hafouz2")]
+    partial class hafouz2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

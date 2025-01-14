@@ -5,7 +5,7 @@
 namespace ServiceApresVenteApp.Migrations
 {
     /// <inheritdoc />
-    public partial class ReclamationFix : Migration
+    public partial class hafouz2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

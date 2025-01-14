@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ServiceApresVenteApp.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:ServiceApresVenteApp/Migrations/20250114172624_Client_Articles.cs
     public partial class Client_Articles : Migration
+========
+    public partial class Hafouz : Migration
+>>>>>>>> ec64037c82ed466b4e4b73a98381e7adb46af2a9:ServiceApresVenteApp/Migrations/20250114221136_Hafouz.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -212,7 +216,7 @@ namespace ServiceApresVenteApp.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Statut = table.Column<int>(type: "int", nullable: false),
                     DateReclamation = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ArticleId = table.Column<int>(type: "int", nullable: true)
+                    ArticleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,7 +225,8 @@ namespace ServiceApresVenteApp.Migrations
                         name: "FK_Reclamations_Articles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Articles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

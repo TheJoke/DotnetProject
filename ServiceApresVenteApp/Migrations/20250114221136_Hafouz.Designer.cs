@@ -11,8 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ServiceApresVenteApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<<< HEAD:ServiceApresVenteApp/Migrations/20250114172624_Client_Articles.Designer.cs
     [Migration("20250114172624_Client_Articles")]
     partial class Client_Articles
+========
+    [Migration("20250114221136_Hafouz")]
+    partial class Hafouz
+>>>>>>>> ec64037c82ed466b4e4b73a98381e7adb46af2a9:ServiceApresVenteApp/Migrations/20250114221136_Hafouz.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -273,7 +278,7 @@ namespace ServiceApresVenteApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ArticleId")
+                    b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateReclamation")
@@ -477,7 +482,9 @@ namespace ServiceApresVenteApp.Migrations
                 {
                     b.HasOne("ServiceApresVente.Models.Article", "Article")
                         .WithMany("Reclamations")
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Article");
                 });
