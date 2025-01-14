@@ -1,4 +1,4 @@
 .vs/
 ServiceApresVenteApp/appsettings.json
-ServiceApresVenteApp/obj
-ServiceApresVenteApp/bin
+ServiceApresVenteApp/obj/
+ServiceApresVenteApp/bin/

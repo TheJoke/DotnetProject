@@ -29,19 +29,24 @@ namespace ServiceApresVenteApp.Controllers
                 // Copy data from RegisterViewModel to IdentityUser
                 var user = new Client
                 {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     UserName = model.Email,
-                    Password = model.Password
+                    Password = model.Password,
+                    Adress = model.Adress,
+                    TelNumber = model.TelNumber,
                 };
                 // debug print user
                 // Store user data in AspNetUsers database table
                 var result = await userManager.CreateAsync(user, model.Password);
-                
+
                 // If user is successfully created, sign-in the user using
                 // SignInManager and redirect to index action of HomeController
                 Debug.WriteLine("Iziquekl:");
                 if (result.Succeeded)
                 {
                     Debug.WriteLine("izeulsdgohl:");
+                    var roleResult = await userManager.AddToRoleAsync(user, "Client");
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Login", "Account");
                 }
