@@ -35,6 +35,7 @@ namespace ServiceApresVenteApp.Controllers
                 // debug print user
                 // Store user data in AspNetUsers database table
                 var result = await userManager.CreateAsync(user, model.Password);
+                
                 // If user is successfully created, sign-in the user using
                 // SignInManager and redirect to index action of HomeController
                 Debug.WriteLine("Iziquekl:");
@@ -42,7 +43,7 @@ namespace ServiceApresVenteApp.Controllers
                 {
                     Debug.WriteLine("izeulsdgohl:");
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 // If there are any errors, add them to the ModelState object
@@ -63,7 +64,7 @@ namespace ServiceApresVenteApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
         [HttpGet]
         public IActionResult Login()
@@ -84,7 +85,7 @@ namespace ServiceApresVenteApp.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Articles");
                     }
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");

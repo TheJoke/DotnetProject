@@ -1,20 +1,37 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ServiceApresVenteApp.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using ServiceApresVente.Models;
+
+
 
 namespace ServiceApresVenteApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<Client> userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, UserManager<Client> userManager)
+
         {
+            this.userManager = userManager;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+            //Debug.WriteLine("________________________");
+            //var user = userManager.FindByIdAsync(userManager.GetUserId(User));
+            //if (user != null)
+            //{
+            //    Debug.WriteLine(user.Result.Id);
+            //}
+               
+            //Debug.WriteLine("________________________");
             return View();
         }
 
