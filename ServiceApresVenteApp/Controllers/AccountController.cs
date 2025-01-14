@@ -89,7 +89,15 @@ namespace ServiceApresVenteApp.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Articles");
+                        if (User.IsInRole("Client"))
+                        {
+                            return RedirectToAction("Index", "Client");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Articles");
+                        }
+                        
                     }
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
