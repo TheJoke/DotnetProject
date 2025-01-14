@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServiceApresVenteApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10cae638c0ea1096b9802693a6b1cc0a8c61f903")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f118e7b901e1f1206c637b1614e99f7036c83057")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServiceApresVenteApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServiceApresVenteApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

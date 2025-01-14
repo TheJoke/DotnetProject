@@ -12,7 +12,6 @@ builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddIdentity<Client, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
-
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Password settings.
@@ -40,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

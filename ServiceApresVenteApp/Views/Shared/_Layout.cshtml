@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ServiceApresVente.Models
+@using System.Security.Claims
 @inject SignInManager<Client> SignInManager
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Service Après Vente</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">Service Après Vente</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,20 +26,24 @@
                     <ul class="navbar-nav ml-auto">
 
                         @*If the user is signed-in display Logout link*@
-                        <li class="nav-item">
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Client"))
+                        {
+                            <li class="nav-item">
 
-                            <a class="nav-link" asp-controller="Students" asp-action="Index">
+                                <a class="nav-link" asp-controller="Articles" asp-action="Index">
 
-                                Students
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                                    Articles
+                                </a>
+                            </li>
+                            <li class="nav-item">
 
-                            <a class="nav-link" asp-controller="Schools" asp-action="Index">
+                                <a class="nav-link" asp-controller="Reclamations" asp-action="Index">
 
-                                Schools
-                            </a>
-                        </li>
+                                    Reclamations
+                                </a>
+                            </li>
+                        }
+                        
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -68,7 +74,7 @@
                                 </a>
                             </li>
                         }
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Responsable"))
                         {
                             <li class="nav-item dropdown">
 
