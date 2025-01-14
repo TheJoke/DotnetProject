@@ -5,12 +5,16 @@
 }
 
 <h1>Index</h1>
-
+@if (User.IsInRole("Client"))
+{
 <a asp-action="Create">Create New</a>
+}
 
 <table class="table">
     <thead>
         <tr>
+            <th>Reference</th>
+            <th>Article</th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
@@ -20,15 +24,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateReclamation)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Article)
-            </th>
+             @*<th>
+                 @Html.DisplayNameFor(model => model.Article)
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>@item.Article?.Reference</td>
+                <td>@item.Article?.Nom</td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
@@ -38,9 +44,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateReclamation)
             </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.ArticleId)
-                </td>
+            </td>*@
             <td>
                     @if (User.IsInRole("Client"))
                     {

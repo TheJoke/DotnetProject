@@ -43,7 +43,7 @@ namespace ServiceApresVenteApp.Controllers
         }
         public async Task<IActionResult> Reclamer(int id)
         {
-            return RedirectToAction("CreateWithArticleId", "Reclamations", new {id = id});
+            return RedirectToAction("CreateWithArticleId", "Reclamations", new {ArticleId = id});
         }
         
 
