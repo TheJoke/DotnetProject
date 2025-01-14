@@ -3,17 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ServiceApresVente.Models;
 
-public class ApplicationDbContext : IdentityDbContext<Client>
+public class ApplicationDbContext : IdentityDbContext<User>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-    public DbSet<Client> Clients { get; set; }
+    public DbSet<User> Users { get; set; }
     public DbSet<Article> Articles { get; set; }
     public DbSet<Reclamation> Reclamations { get; set; }
     public DbSet<Intervention> Interventions { get; set; }
     public DbSet<PieceDeRechange> Pieces { get; set; }
-    public DbSet<ResponsableSAV> Responsables { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -21,9 +20,9 @@ public class ApplicationDbContext : IdentityDbContext<Client>
 
         // Customize the ASP.NET Identity model and override defaults if needed
         // Example: Rename the ASP.NET Identity table names
-        builder.Entity<Client>(entity =>
+        builder.Entity<User>(entity =>
         {
-            entity.ToTable("Clients");
+            entity.ToTable("Users");
         });
     }
 }

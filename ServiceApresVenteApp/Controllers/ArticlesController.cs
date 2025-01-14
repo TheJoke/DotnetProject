@@ -21,7 +21,7 @@ namespace ServiceApresVenteApp.Controllers
         // GET: Articles
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Articles.Include(a => a.Client);
+            var applicationDbContext = _context.Articles.Include(a => a.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace ServiceApresVenteApp.Controllers
             }
 
             var article = await _context.Articles
-                .Include(a => a.Client)
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
@@ -47,7 +47,7 @@ namespace ServiceApresVenteApp.Controllers
         // GET: Articles/Create
         public IActionResult Create()
         {
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace ServiceApresVenteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Reference,DateAchat,DureeGarantie,ClientId")] Article article)
+        public async Task<IActionResult> Create([Bind("Id,Nom,Reference,DateAchat,DureeGarantie,UserId")] Article article)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace ServiceApresVenteApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", article.ClientId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", article.UserId);
             return View(article);
         }
 
@@ -81,7 +81,7 @@ namespace ServiceApresVenteApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", article.ClientId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", article.UserId);
             return View(article);
         }
 
@@ -90,7 +90,7 @@ namespace ServiceApresVenteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Reference,DateAchat,DureeGarantie,ClientId")] Article article)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Reference,DateAchat,DureeGarantie,UserId")] Article article)
         {
             if (id != article.Id)
             {
@@ -117,7 +117,7 @@ namespace ServiceApresVenteApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", article.ClientId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", article.UserId);
             return View(article);
         }
 
@@ -130,7 +130,7 @@ namespace ServiceApresVenteApp.Controllers
             }
 
             var article = await _context.Articles
-                .Include(a => a.Client)
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {

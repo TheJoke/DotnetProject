@@ -9,9 +9,9 @@ namespace ServiceApresVenteApp.Controllers
     public class AccountController : Controller
     {
         // GET: AccountController
-        private readonly UserManager<Client> userManager;
-        private readonly SignInManager<Client> signInManager;
-        public AccountController(UserManager<Client> userManager, SignInManager<Client> signInManager)
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -27,7 +27,7 @@ namespace ServiceApresVenteApp.Controllers
             if (ModelState.IsValid)
             {
                 // Copy data from RegisterViewModel to IdentityUser
-                var user = new Client
+                var user = new User
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,

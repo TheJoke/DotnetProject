@@ -2,7 +2,7 @@
 
 namespace ServiceApresVente.Models
 {
-    public class Client : IdentityUser
+    public class User : IdentityUser
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
