@@ -30,7 +30,7 @@ namespace ServiceApresVenteApp.Controllers
             //{
             //    Debug.WriteLine(user.Result.Id);
             //}
-               
+
             //Debug.WriteLine("________________________");
             return View();
         }
