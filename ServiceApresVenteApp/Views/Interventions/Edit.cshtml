@@ -1,0 +1,59 @@
+﻿@model ServiceApresVente.Models.Intervention
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Intervention</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ReclamationId" class="control-label"></label>
+                <select asp-for="ReclamationId" class="form-control" asp-items="ViewBag.ReclamationId"></select>
+                <span asp-validation-for="ReclamationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Technicien" class="control-label"></label>
+                <input asp-for="Technicien" class="form-control" />
+                <span asp-validation-for="Technicien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateIntervention" class="control-label"></label>
+                <input asp-for="DateIntervention" class="form-control" />
+                <span asp-validation-for="DateIntervention" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EstSousGarantie" /> @Html.DisplayNameFor(model => model.EstSousGarantie)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoutMainOeuvre" class="control-label"></label>
+                <input asp-for="CoutMainOeuvre" class="form-control" />
+                <span asp-validation-for="CoutMainOeuvre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoutTotal" class="control-label"></label>
+                <input asp-for="CoutTotal" class="form-control" />
+                <span asp-validation-for="CoutTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
