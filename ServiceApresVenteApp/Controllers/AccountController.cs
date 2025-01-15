@@ -42,11 +42,18 @@ namespace ServiceApresVenteApp.Controllers
 
                 // If user is successfully created, sign-in the user using
                 // SignInManager and redirect to index action of HomeController
-                Debug.WriteLine("Iziquekl:");
                 if (result.Succeeded)
                 {
-                    Debug.WriteLine("izeulsdgohl:");
-                    var roleResult = await userManager.AddToRoleAsync(user, "Client");
+                    if(user.Id == 1)
+                    {
+                        var roleResult = await userManager.AddToRoleAsync(user, "Responsable");
+
+                    }
+                    else
+                    {
+                        var roleResult = await userManager.AddToRoleAsync(user, "Client");
+
+                    }
                     return RedirectToAction("Login", "Account");
                 }
 
@@ -55,7 +62,6 @@ namespace ServiceApresVenteApp.Controllers
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
-                    Debug.WriteLine(error.Description);
                 }
             }
             else
