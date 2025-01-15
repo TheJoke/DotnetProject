@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ServiceApresVenteApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250115132534_IntervensionFix")]
+    partial class IntervensionFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,8 +217,7 @@ namespace ServiceApresVenteApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReclamationId")
-                        .IsUnique();
+                    b.HasIndex("ReclamationId");
 
                     b.ToTable("Interventions");
                 });
@@ -450,8 +452,8 @@ namespace ServiceApresVenteApp.Migrations
             modelBuilder.Entity("ServiceApresVente.Models.Intervention", b =>
                 {
                     b.HasOne("ServiceApresVente.Models.Reclamation", "Reclamation")
-                        .WithOne("Intervention")
-                        .HasForeignKey("ServiceApresVente.Models.Intervention", "ReclamationId")
+                        .WithMany("Interventions")
+                        .HasForeignKey("ReclamationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -491,7 +493,7 @@ namespace ServiceApresVenteApp.Migrations
 
             modelBuilder.Entity("ServiceApresVente.Models.Reclamation", b =>
                 {
-                    b.Navigation("Intervention");
+                    b.Navigation("Interventions");
                 });
 
             modelBuilder.Entity("ServiceApresVente.Models.User", b =>

@@ -56,7 +56,12 @@
                     }
                     else
                     {
-                        <a asp-action="EditForResponsable" asp-route-id="@item.Id">Edit</a>
+                        @if(item.Statut==ServiceApresVente.Models.StatutReclamation.EnAttente){
+                            <a asp-action="EditForResponsable" asp-route-id="@item.Id">Edit</a>
+                        }
+                        else{
+                            <a asp-action="GetInterventionByReclamationId" asp-route-id="@item.Id">Intervensions</a>
+                        }
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                     }
 
