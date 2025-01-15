@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ServiceApresVente.Models;
+using ServiceApresVenteApp.Models;
+using ServiceApresVenteApp.ViewModels;
 
 namespace ServiceApresVenteApp.Controllers
 {
@@ -82,6 +85,8 @@ namespace ServiceApresVenteApp.Controllers
             {
                 return NotFound();
             }
+            var pieces = _context.Pieces.ToList();
+            ViewData["Pieces"] = pieces;
             ViewData["ReclamationId"] = new SelectList(_context.Reclamations, "Id", "Id", intervention.ReclamationId);
             return View(intervention);
         }
@@ -91,7 +96,10 @@ namespace ServiceApresVenteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ReclamationId,Technicien,DateIntervention,EstSousGarantie,CoutMainOeuvre")] Intervention intervention)
+        public async Task<IActionResult> Edit(
+    int id,
+    [Bind("Id,ReclamationId,Technicien,DateIntervention,EstSousGarantie,CoutMainOeuvre")] Intervention intervention,
+    List<PieceViewModel> pieces1)
         {
             if (id != intervention.Id)
             {
@@ -102,8 +110,41 @@ namespace ServiceApresVenteApp.Controllers
             {
                 try
                 {
-                    _context.Update(intervention);
+                    var existingIntervention = await _context.Interventions
+                        .Include(i => i.PiecesUtilisees)
+                        .FirstOrDefaultAsync(i => i.Id == id);
+
+                    if (existingIntervention == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update basic intervention properties
+                    _context.Entry(existingIntervention).CurrentValues.SetValues(intervention);
+
+                    // Remove existing intervention pieces
+                    var existingInterventionPieces = await _context.Set<IntervensionPiece>()
+                        .Where(ip => ip.InterventionId == id)
+                        .ToListAsync();
+                    _context.Set<IntervensionPiece>().RemoveRange(existingInterventionPieces);
+
+                    // Add new intervention pieces with quantities
+                    if (pieces1 != null && pieces1.Any())
+                    {
+                        foreach (var piece in pieces1)
+                        {
+                            var interventionPiece = new IntervensionPiece
+                            {
+                                InterventionId = id,
+                                PieceDeRechangeId = piece.Id,
+                                Quantite = piece.Quantite
+                            };
+                            _context.Set<IntervensionPiece>().Add(interventionPiece);
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -116,20 +157,10 @@ namespace ServiceApresVenteApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                // Loop through the errors in the ModelState
-                foreach (var modelState in ModelState.Values)
-                {
-                    foreach (var error in modelState.Errors)
-                    {
-                        Debug.WriteLine(error.ErrorMessage); // Print the error message
-                    }
-                }
-            }
+
             ViewData["ReclamationId"] = new SelectList(_context.Reclamations, "Id", "Id", intervention.ReclamationId);
+            ViewData["Pieces"] = new SelectList(_context.Pieces, "Id", "Nom");
             return View(intervention);
         }
 
