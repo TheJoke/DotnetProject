@@ -11,13 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ServiceApresVenteApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:ServiceApresVenteApp/Migrations/20250114172624_Client_Articles.Designer.cs
-    [Migration("20250114172624_Client_Articles")]
-    partial class Client_Articles
-========
+
     [Migration("20250114221136_Hafouz")]
     partial class Hafouz
->>>>>>>> ec64037c82ed466b4e4b73a98381e7adb46af2a9:ServiceApresVenteApp/Migrations/20250114221136_Hafouz.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
