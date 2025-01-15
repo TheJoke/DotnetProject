@@ -27,6 +27,15 @@ namespace ServiceApresVenteApp.Migrations
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
                 });
 
+            migrationBuilder.InsertData(
+            table: "AspNetRoles",
+            columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+            values: new object[,]
+            {
+                { 1, "Responsable", "RESPONSABLE", Guid.NewGuid().ToString() },
+                { 2, "Client", "CLIENT", Guid.NewGuid().ToString() }
+            });
+
             migrationBuilder.CreateTable(
                 name: "Pieces",
                 columns: table => new
