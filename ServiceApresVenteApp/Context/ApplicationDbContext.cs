@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ServiceApresVente.Models;
+using Microsoft.Extensions.Hosting;
+using System.Reflection.Emit;
+using ServiceApresVenteApp.Models;
 
 public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, int>
 {
@@ -24,5 +27,9 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, i
         {
             entity.ToTable("Users");
         });
+        builder.Entity<Intervention>()
+            .HasMany(e => e.PiecesUtilisees)
+            .WithMany(e => e.Interventions)
+            .UsingEntity<IntervensionPiece>(j => j.Property(e => e.Quantite));
     }
 }

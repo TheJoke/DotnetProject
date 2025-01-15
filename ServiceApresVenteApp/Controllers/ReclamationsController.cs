@@ -68,7 +68,7 @@ namespace ServiceApresVenteApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                reclamation.Statut = StatutReclamation.EnCours;
+                reclamation.Statut = StatutReclamation.EnAttente;
                 _context.Add(reclamation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -92,7 +92,7 @@ namespace ServiceApresVenteApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                reclamation.Statut = StatutReclamation.EnCours;
+                reclamation.Statut = StatutReclamation.EnAttente;
                 _context.Add(reclamation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -197,14 +197,7 @@ namespace ServiceApresVenteApp.Controllers
             {
                 return NotFound();
             }
-            ViewBag.StatusReclamation = Enum.GetValues(typeof(StatutReclamation))
-                                    .Cast<StatutReclamation>()
-                                    .Select(sr => new SelectListItem
-                                    {
-                                        Text = sr.ToString(), // Display text in the dropdown
-                                        Value = ((int)sr).ToString() // Corresponding value for the option
-                                    })
-                                    .ToList();
+            ViewBag.StatusReclamation = StatutReclamation.EnCours;
             var reclamation = await _context.Reclamations.FindAsync(id);
             if (reclamation == null)
             {
@@ -231,10 +224,22 @@ namespace ServiceApresVenteApp.Controllers
             {
                 try
                 {
-                    existingTask.Statut = reclamation.Statut; 
+                    existingTask.Statut = StatutReclamation.EnCours;
+                    var article = _context.Articles.Find(existingTask.ArticleId);
+                    
+                    var intervention = new Intervention
+                    {
+                        ReclamationId = reclamation.Id,
+                        EstSousGarantie =
+                        reclamation.DateReclamation <=
+                        article.DateAchat.AddYears(article.DureeGarantie)
+                    };
 
                     _context.Update(existingTask);
+                    _context.Add(intervention);
                     await _context.SaveChangesAsync();
+                    
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -250,6 +255,12 @@ namespace ServiceApresVenteApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(reclamation);
+        }
+
+        public async Task<IActionResult> GetInterventionByReclamationId(int id)
+        {
+            var intervensionId = _context.Reclamations.Include(r=> r.Intervention).FirstOrDefault(i => i.Id==id).Intervention.Id;
+            return RedirectToAction("Edit", "Interventions", new {id = intervensionId});
         }
     }
 }
