@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post" id="editForm">
+        <form asp-action="Edit" method="post" id="editForm" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -81,30 +81,39 @@
             $("#addPieceButton").click(function () {
                 pieceCounter++;
 
-                // Add a new row to the table
-                        $("#piecesTable tbody").append(`
-                        <tr id="pieceRow_${pieceCounter}">
-                            <td>
-                                <select id="pieces1[${pieceCounter}].Id" name="pieces1[${pieceCounter}].Id" class="form-control">
-                    @foreach (var piece in ViewBag.Pieces)
-                    {
-                                            <option value="@piece.Id">@piece.Nom</option>
-                    }
-                                </select>
-                            </td>
-                            <td>
-                                <input id="pieces1[${pieceCounter}].Quantite" type="number" name="pieces1[${pieceCounter}].Quantite" class="form-control" min="1" value="1" />
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger removePieceButton">Supprimer</button>
-                            </td>
-                        </tr>
-                    `);
+                $("#piecesTable tbody").append(`
+                <tr id="pieceRow_${pieceCounter}">
+                    <td>
+                        <select name="pieces1[${pieceCounter - 1}].Id" class="form-control">
+        @foreach (var piece in ViewBag.Pieces)
+        {
+                                    <option value="@piece.Id">@piece.Nom</option>
+        }
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" name="pieces1[${pieceCounter - 1}].Quantite" class="form-control" min="1" value="1" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger removePieceButton">Supprimer</button>
+                    </td>
+                </tr>
+            `);
             });
 
-            // Event listener for removing a row
+            function reindexPieceRows() {
+                let index = 0;
+                $("#piecesTable tbody tr").each(function () {
+                    $(this).find("select").attr("name", `pieces1[${index}].Id`);
+                    $(this).find("input[type=number]").attr("name", `pieces1[${index}].Quantite`);
+                    index++;
+                });
+            }
+
+            // Call this after removing a row
             $("#piecesTable").on("click", ".removePieceButton", function () {
                 $(this).closest("tr").remove();
+                reindexPieceRows();
             });
         });
     </script>
