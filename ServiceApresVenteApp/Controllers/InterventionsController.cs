@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ServiceApresVente.Models;
+using ServiceApresVenteApp.ViewModels;
 
 namespace ServiceApresVenteApp.Controllers
 {
@@ -82,6 +84,8 @@ namespace ServiceApresVenteApp.Controllers
             {
                 return NotFound();
             }
+            var pieces = _context.Pieces.ToList();
+            ViewData["Pieces"] = pieces;
             ViewData["ReclamationId"] = new SelectList(_context.Reclamations, "Id", "Id", intervention.ReclamationId);
             return View(intervention);
         }
@@ -91,8 +95,32 @@ namespace ServiceApresVenteApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ReclamationId,Technicien,DateIntervention,EstSousGarantie,CoutMainOeuvre")] Intervention intervention)
+        public async Task<IActionResult> Edit(
+    int id,
+    [Bind("Id,ReclamationId,Technicien,DateIntervention,EstSousGarantie,CoutMainOeuvre, pieces")] Intervention intervention,
+    [Bind("pieces1")] IList <PieceViewModel> pieces1) // Ensure the parameter name matches the form field prefix
         {
+            // Print all POST parameters
+            Debug.WriteLine("POST Parameters:");
+            foreach (var key in HttpContext.Request.Form.Keys)
+            {
+                var value = HttpContext.Request.Form[key];
+                Debug.WriteLine($"{key} = {value}");
+            }
+            // Log the incoming Pieces data
+            if (pieces1 == null)
+            {
+                Debug.WriteLine("Pieces is null.");
+            }
+            else
+            {
+                Debug.WriteLine($"Pieces count: {pieces1.Count()}");
+                foreach (var piece in pieces1)
+                {
+                    Debug.WriteLine($"Piece Id: {piece.Id}, Quantite: {piece.Quantite}");
+                }
+            }
+
             if (id != intervention.Id)
             {
                 return NotFound();
@@ -102,7 +130,37 @@ namespace ServiceApresVenteApp.Controllers
             {
                 try
                 {
-                    _context.Update(intervention);
+                    // Fetch the existing intervention from the database
+                    var existingIntervention = await _context.Interventions
+                        .Include(i => i.PiecesUtilisees) // Include the related pieces
+                        .FirstOrDefaultAsync(i => i.Id == id);
+
+                    if (existingIntervention == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update the main intervention details
+                    _context.Entry(existingIntervention).CurrentValues.SetValues(intervention);
+
+                    // Handle pieces
+                    if (pieces1 != null && pieces1.Any())
+                    {
+                        // Clear existing pieces
+                        existingIntervention.PiecesUtilisees.Clear();
+
+                        // Add new pieces from the submitted form
+                        foreach (var piece in pieces1)
+                        {
+                            var existingPiece = await _context.Pieces.FindAsync(piece.Id);
+                            if (existingPiece != null)
+                            {
+                                existingIntervention.PiecesUtilisees.Add(existingPiece);
+                            }
+                        }
+                    }
+
+                    // Save changes
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -118,20 +176,23 @@ namespace ServiceApresVenteApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            else
+
+            // Log validation errors (for debugging)
+            foreach (var modelState in ModelState.Values)
             {
-                // Loop through the errors in the ModelState
-                foreach (var modelState in ModelState.Values)
+                foreach (var error in modelState.Errors)
                 {
-                    foreach (var error in modelState.Errors)
-                    {
-                        Debug.WriteLine(error.ErrorMessage); // Print the error message
-                    }
+                    Debug.WriteLine(error.ErrorMessage);
                 }
             }
+
+            // Repopulate ViewData for dropdowns
             ViewData["ReclamationId"] = new SelectList(_context.Reclamations, "Id", "Id", intervention.ReclamationId);
+            ViewData["Pieces"] = new SelectList(_context.Pieces, "Id", "Nom"); // Ensure this matches your Piece model
+
             return View(intervention);
         }
+
 
         // GET: Interventions/Delete/5
         public async Task<IActionResult> Delete(int? id)
