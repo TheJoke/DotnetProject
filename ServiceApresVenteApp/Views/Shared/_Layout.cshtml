@@ -9,49 +9,56 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Service Après Vente</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/morphy.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/UserWebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">Service Après Vente</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav ml-auto">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
 
-                        @*If the user is signed-in display Logout link*@
+                        @* Client Role Links *@
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Client"))
                         {
                             <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Client" asp-action="Index">
-
-                                    Articles
-                                </a>
+                                <a class="nav-link" asp-controller="Client" asp-action="Index">Articles</a>
                             </li>
                             <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Reclamations" asp-action="Index">
-
-                                    Reclamations
-                                </a>
+                                <a class="nav-link" asp-controller="Reclamations" asp-action="Index">Reclamations</a>
                             </li>
                         }
-                        
+
+                        @* Responsable Role Links *@
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Responsable"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Articles" asp-action="Index">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Reclamations" asp-action="Index">Reclamations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Interventions" asp-action="Index">Interventions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="PieceDeRechanges" asp-action="Index">Pieces de Rechange</a>
+                            </li>
+                        }
+
+                        @* Common Links *@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-
-                                <form method="post" asp-controller="account" asp-action="logout">
-                                    <button type="submit" style="width:auto"
-                                            class="nav-link btn btn-link py-0">
-
+                                <form method="post" asp-controller="account" asp-action="logout" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-decoration-none">
                                         Logout @User.Identity.Name
                                     </button>
                                 </form>
@@ -60,57 +67,43 @@
                         else
                         {
                             <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Account" asp-action="Register">
-
-                                    Register
-                                </a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                             <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Account" asp-action="Login">
-
-                                    Login
-                                </a>
-                            </li>
-                        }
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Responsable"))
-                        {
-                            <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Articles" asp-action="Index">
-
-                                    Articles
-                                </a>
-                            </li>
-                            <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Reclamations" asp-action="Index">
-
-                                    Reclamations
-                                </a>
-                            </li>
-                            <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Interventions" asp-action="Index">
-
-                                    Interventions
-                                </a>
-                            </li>
-                            <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="PieceDeRechanges" asp-action="Index">
-
-                                    Pieces de Rechange
-                                </a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
                     </ul>
-
                 </div>
             </div>
         </nav>
     </header>
+    <style>
+        .navbar {
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-link {
+            margin-right: 1rem;
+            color: #555; /* Neutral color for better contrast */
+        }
+
+            .nav-link:hover {
+                color: #000; /* Darker color on hover */
+            }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        button.nav-link {
+            padding: 0;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+    </style>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

@@ -1,65 +1,54 @@
 ﻿@model IEnumerable<ServiceApresVente.Models.Intervention>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Liste des Interventions";
 }
 
-<h1>Index</h1>
+<h1>Liste des Interventions</h1>
 
+<!-- Bouton pour créer une nouvelle intervention -->
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Créer une Nouvelle Intervention</a>
 </p>
-<table class="table">
-    <thead>
+
+<!-- Tableau des interventions -->
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Technicien)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateIntervention)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstSousGarantie)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoutMainOeuvre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoutTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reclamation)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Technicien)</th>
+            <th>@Html.DisplayNameFor(model => model.DateIntervention)</th>
+            <th>@Html.DisplayNameFor(model => model.EstSousGarantie)</th>
+            <th>@Html.DisplayNameFor(model => model.CoutMainOeuvre)</th>
+            <th>@Html.DisplayNameFor(model => model.CoutTotal)</th>
+            <th>@Html.DisplayNameFor(model => model.Reclamation)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Technicien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateIntervention)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstSousGarantie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoutMainOeuvre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoutTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reclamation.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Technicien)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateIntervention)</td>
+                <td>
+                    @if (item.EstSousGarantie)
+                    {
+                        <span class="badge badge-success">Oui</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">Non</span>
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.CoutMainOeuvre) €</td>
+                <td>@Html.DisplayFor(modelItem => item.CoutTotal) €</td>
+                <td>@Html.DisplayFor(modelItem => item.Reclamation.Id)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Modifier</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Détails</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
