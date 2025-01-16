@@ -37,16 +37,64 @@ namespace ServiceApresVenteApp.Controllers
                 return NotFound();
             }
 
+            var interventionPieces = await _context.Set<IntervensionPiece>()
+                .Where(ip => ip.InterventionId == id)
+                .ToListAsync();
+
+            if (interventionPieces == null || !interventionPieces.Any())
+            {
+                return NotFound();
+            }
+
+            // Retrieve the price for each piece
+            var pieceDetails = new List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>();
+
+            foreach (var item in interventionPieces)
+            {
+                Debug.WriteLine("===================================");
+                Debug.WriteLine($"InterventionId: {item.InterventionId}");
+                Debug.WriteLine($"PieceDeRechangeId: {item.PieceDeRechangeId}");
+                Debug.WriteLine($"Quantite: {item.Quantite}");
+                Debug.WriteLine("Attempting to fetch piece from the database...");
+
+                var pieceFromDb = await _context.Pieces.FirstOrDefaultAsync(i => i.Id == item.PieceDeRechangeId);
+
+                if (pieceFromDb != null)
+                {
+                    Debug.WriteLine("✅ Piece found:");
+                    Debug.WriteLine($"Piece Name: {pieceFromDb.Nom}");
+                    Debug.WriteLine($"Prix Unitaire: {pieceFromDb.Prix}");
+
+                    pieceDetails.Add((
+                        PieceName: pieceFromDb.Nom,
+                        Quantite: item.Quantite,
+                        PrixUnitaire: pieceFromDb.Prix,
+                        PrixTotal: item.Quantite * pieceFromDb.Prix
+                    ));
+                }
+                else
+                {
+                    Debug.WriteLine("❌ No matching piece found in the Pieces table for PieceDeRechangeId: " + item.PieceDeRechangeId);
+                }
+                Debug.WriteLine("===================================");
+            }
+
+
             var intervention = await _context.Interventions
                 .Include(i => i.Reclamation)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (intervention == null)
             {
                 return NotFound();
             }
 
+            // Pass piece details to the view
+            ViewBag.PieceDetails = pieceDetails;
+
             return View(intervention);
         }
+
 
         // GET: Interventions/Create
         public IActionResult Create()
@@ -119,7 +167,40 @@ namespace ServiceApresVenteApp.Controllers
                         return NotFound();
                     }
 
-                    // Update basic intervention properties
+                    // Calculate total cost of pieces
+                    double coutPieces = 0;
+                    Debug.WriteLine("Starting cost calculation:");
+                    Debug.WriteLine($"EstSousGarantie: {intervention.EstSousGarantie}");
+                    Debug.WriteLine($"CoutMainOeuvre: {intervention.CoutMainOeuvre}");
+
+                    if (pieces1 != null && pieces1.Any())
+                    {
+                        foreach (var piece in pieces1)
+                        {
+                            var pieceFromDb = await _context.Pieces.FirstOrDefaultAsync(i => i.Id == piece.Id);
+                            if (pieceFromDb != null)
+                            {
+                                var pieceCost = piece.Quantite * pieceFromDb.Prix;
+                                coutPieces += pieceCost;
+                                Debug.WriteLine($"Piece ID: {piece.Id}, Quantity: {piece.Quantite}, Unit Price: {pieceFromDb.Prix}, Subtotal: {pieceCost}");
+                            }
+                        }
+                    }
+                    Debug.WriteLine($"Total pieces cost: {coutPieces}");
+
+                    // Calculate and set CoutTotal on the intervention object
+                    if (!intervention.EstSousGarantie)
+                    {
+                        intervention.CoutTotal = intervention.CoutMainOeuvre + coutPieces;
+                        Debug.WriteLine($"Not under warranty - Final total: {intervention.CoutTotal}");
+                    }
+                    else
+                    {
+                        intervention.CoutTotal = 0;
+                        Debug.WriteLine("Under warranty - Cost set to 0");
+                    }
+
+                    // Now update all properties including CoutTotal
                     _context.Entry(existingIntervention).CurrentValues.SetValues(intervention);
 
                     // Remove existing intervention pieces
@@ -144,18 +225,13 @@ namespace ServiceApresVenteApp.Controllers
                     }
 
                     await _context.SaveChangesAsync();
+                    Debug.WriteLine("Changes saved successfully");
                     return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!InterventionExists(intervention.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    Debug.WriteLine($"Error: {ex.Message}");
+                    throw;
                 }
             }
 
