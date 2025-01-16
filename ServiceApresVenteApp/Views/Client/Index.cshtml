@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Vos Articles</h1>
 
 
 <table class="table">
@@ -44,7 +44,7 @@
                 </td>
 
                 <td>
-                    <a asp-action="Reclamer" asp-route-id="@item.Id">Reclamer</a>
+                    <a asp-action="Reclamer" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Reclamer</a>
                 </td>
             </tr>
         }

@@ -44,36 +44,7 @@
                             </li>
                         }
                         
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-
-                                <form method="post" asp-controller="account" asp-action="logout">
-                                    <button type="submit" style="width:auto"
-                                            class="nav-link btn btn-link py-0">
-
-                                        Logout @User.Identity.Name
-                                    </button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Account" asp-action="Register">
-
-                                    Register
-                                </a>
-                            </li>
-                            <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Account" asp-action="Login">
-
-                                    Login
-                                </a>
-                            </li>
-                        }
+                       
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Responsable"))
                         {
                             <li class="nav-item">
@@ -102,6 +73,36 @@
                                 <a class="nav-link" asp-controller="PieceDeRechanges" asp-action="Index">
 
                                     Pieces de Rechange
+                                </a>
+                            </li>
+                        }
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+
+                                <form method="post" asp-controller="account" asp-action="logout">
+                                    <button type="submit" style="width:auto"
+                                            class="nav-link btn btn-link py-0">
+
+                                        Logout @User.Identity.Name
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">
+
+                                    Register
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">
+
+                                    Login
                                 </a>
                             </li>
                         }
