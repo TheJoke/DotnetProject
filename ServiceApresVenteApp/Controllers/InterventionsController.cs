@@ -224,6 +224,17 @@ namespace ServiceApresVenteApp.Controllers
                         }
                     }
 
+                    // Update the status of the associated reclamation
+                    var existingReclamation = await _context.Reclamations
+                        .FirstOrDefaultAsync(r => r.Id == intervention.ReclamationId);
+
+                    if (existingReclamation != null)
+                    {
+                        existingReclamation.Statut = StatutReclamation.Resolu;
+                        _context.Entry(existingReclamation).State = EntityState.Modified;
+                        Debug.WriteLine($"Reclamation status updated to {StatutReclamation.Resolu}");
+                    }
+
                     await _context.SaveChangesAsync();
                     Debug.WriteLine("Changes saved successfully");
                     return RedirectToAction(nameof(Index));
@@ -239,6 +250,7 @@ namespace ServiceApresVenteApp.Controllers
             ViewData["Pieces"] = new SelectList(_context.Pieces, "Id", "Nom");
             return View(intervention);
         }
+
 
         // GET: Interventions/Delete/5
         public async Task<IActionResult> Delete(int? id)
