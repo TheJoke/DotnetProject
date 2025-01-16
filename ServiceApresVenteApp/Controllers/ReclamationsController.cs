@@ -58,6 +58,16 @@ namespace ServiceApresVenteApp.Controllers
 
             return View();
         }
+        public IActionResult GetArticleName(int id)
+        {
+            var article = articleRepository.GetById(id);
+            if (article != null)
+            {
+                return Json(article.Nom); // Assuming the property for the name is 'Nom'
+            }
+            return Json("Article not found");
+        }
+
 
         // POST: Reclamations/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

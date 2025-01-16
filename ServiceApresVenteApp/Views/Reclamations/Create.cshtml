@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Create";
 }
-
 <h1>Create</h1>
 
 <h4>Reclamation</h4>
@@ -25,7 +24,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="ArticleId" class="control-label">Reference article</label>
-                <select asp-for="ArticleId" class="form-control" asp-items="ViewBag.ArticleId"></select>
+                <select asp-for="ArticleId" class="form-control" asp-items="ViewBag.ArticleId" id="articleDropdown">
+                    <option value="">--Selectionner un article--</option>
+                </select>
+            </div>
+            <div class="form-group">
+            <label>Article</label>
+            <div id="articleName" class="form-control" style="background-color: #f8f9fa;"> </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
