@@ -4,56 +4,41 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Détails de l'Intervention</h1>
 
+<!-- Détails de l'Intervention -->
 <div>
     <h4>Intervention</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Technicien)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Technicien)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateIntervention)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateIntervention)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EstSousGarantie)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EstSousGarantie)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CoutMainOeuvre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CoutMainOeuvre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CoutTotal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CoutTotal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reclamation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reclamation.Id)
-        </dd>
-    </dl>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Technicien</th>
+                <th>Date Intervention</th>
+                <th>Sous Garantie</th>
+                <th>Coût Main d'Oeuvre</th>
+                <th>Coût Total</th>
+                <th>Réclamation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Technicien)</td>
+                <td>@Html.DisplayFor(model => model.DateIntervention)</td>
+                <td>@Html.DisplayFor(model => model.EstSousGarantie)</td>
+                <td>@Html.DisplayFor(model => model.CoutMainOeuvre)</td>
+                <td>@Html.DisplayFor(model => model.CoutTotal)</td>
+                <td>@Html.DisplayFor(model => model.Reclamation.Id)</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-<!-- Display the list of pieces with quantities and prices -->
+<!-- Détails des pièces utilisées -->
 @if (ViewBag.PieceDetails != null && ((List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>)ViewBag.PieceDetails).Any())
 {
     <h4>Pièces Utilisées</h4>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Nom de la Pièce</th>
@@ -80,7 +65,8 @@ else
     <p>Aucune pièce utilisée pour cette intervention.</p>
 }
 
+<!-- Boutons de navigation -->
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Modifier</a> |
-    <a asp-action="Index">Retour à la liste</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Modifier</a>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
 </div>
