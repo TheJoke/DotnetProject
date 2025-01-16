@@ -20,3 +20,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* Active link with a colored box */
+.nav-link.active-link {
+    background-color: #007bff; /* Blue background */
+    color: #fff !important;
+    border-radius: 5px;
+    padding: 8px 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Smooth hover effect for all nav links */
+.nav-link:hover {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+

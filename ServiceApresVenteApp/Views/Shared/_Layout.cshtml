@@ -12,72 +12,79 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/morphy.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/UserWebApp.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">Service Après Vente</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" asp-area="" asp-controller="Account" asp-action="Login">Service Après Vente</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Client"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Client" ? "active-link" : "")"
+                               asp-controller="Client" asp-action="Index">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Reclamations" ? "active-link" : "")"
+                               asp-controller="Reclamations" asp-action="Index">Reclamations</a>
+                        </li>
+                    }
 
-                        @* Client Role Links *@
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Client"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Client" asp-action="Index">Articles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Reclamations" asp-action="Index">Reclamations</a>
-                            </li>
-                        }
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Responsable"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Articles" ? "active-link" : "")"
+                               asp-controller="Articles" asp-action="Index">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Reclamations" ? "active-link" : "")"
+                               asp-controller="Reclamations" asp-action="Index">Reclamations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Interventions" ? "active-link" : "")"
+                               asp-controller="Interventions" asp-action="Index">Interventions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "PieceDeRechanges" ? "active-link" : "")"
+                               asp-controller="PieceDeRechanges" asp-action="Index">Pièces de Rechange</a>
+                        </li>
+                    }
+                </ul>
 
-                        @* Responsable Role Links *@
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Responsable"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Articles" asp-action="Index">Articles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Reclamations" asp-action="Index">Reclamations</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Interventions" asp-action="Index">Interventions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="PieceDeRechanges" asp-action="Index">Pieces de Rechange</a>
-                            </li>
-                        }
-
-                        @* Common Links *@
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <form method="post" asp-controller="account" asp-action="logout" class="d-inline">
-                                    <button type="submit" class="nav-link btn btn-link text-decoration-none">
-                                        Logout @User.Identity.Name
-                                    </button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                <ul class="navbar-nav">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <button type="submit" class="btn btn-outline-danger"> <i class="bi bi-power"></i> Logout (@User.Identity.Name)</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary me-2" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    }
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
+
     <style>
         .navbar {
             padding: 0.5rem 1rem;

@@ -1,12 +1,30 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ServiceApresVente.Models
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+
 @{
     ViewData["Title"] = "Home Page";
-
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (User.IsInRole("Client"))
+        {
+            <h2>Bienvenue dans l'espace client</h2>
+        }
+        else if (User.IsInRole("Responsable"))
+        {
+            <h2>Bienvenue dans l'espace responsable</h2>
+        }
+    }
+    else
+    {
+        <p>Veuillez vous connecter pour accéder à votre espace.</p>
+    }
 
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
