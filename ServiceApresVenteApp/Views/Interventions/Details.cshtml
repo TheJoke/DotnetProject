@@ -10,45 +10,77 @@
     <h4>Intervention</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Technicien)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Technicien)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateIntervention)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateIntervention)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EstSousGarantie)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EstSousGarantie)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CoutMainOeuvre)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CoutMainOeuvre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CoutTotal)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CoutTotal)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reclamation)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Reclamation.Id)
         </dd>
     </dl>
 </div>
+
+<!-- Display the list of pieces with quantities and prices -->
+@if (ViewBag.PieceDetails != null && ((List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>)ViewBag.PieceDetails).Any())
+{
+    <h4>Pièces Utilisées</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom de la Pièce</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Prix Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var piece in (List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>)ViewBag.PieceDetails)
+            {
+                <tr>
+                    <td>@piece.PieceName</td>
+                    <td>@piece.Quantite</td>
+                    <td>@piece.PrixUnitaire</td>
+                    <td>@piece.PrixTotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucune pièce utilisée pour cette intervention.</p>
+}
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Modifier</a> |
+    <a asp-action="Index">Retour à la liste</a>
 </div>
